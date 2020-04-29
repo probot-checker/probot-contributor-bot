@@ -1,16 +1,24 @@
 {
-  "projectName": "prbot-contributor-bot",
-  "projectOwner": "karankiri",
-  "repoType": "github",
-  "repoHost": "https://github.com",
   "files": [
     "README.md"
   ],
-  "badgeTemplate": "<a aria-label=\"All Contributors\" href=\"#contributors-\"><img alt=\"\" src=\"https://img.shields.io/badge/all_contributors-<%= contributors.length + 9 %>-17BB8A.svg?style=for-the-badge&labelColor=000000\"></a>",
   "imageSize": 100,
-  "commit": true,
-  "commitConvention": "none",
-  "contributors": [],
+  "commit": false,
+  "contributors": [
+    {
+      "login": "karankiri",
+      "name": "Karan Kiri",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/19989161?v=4",
+      "profile": "http://karankiri.com",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
   "contributorsPerLine": 7,
+  "projectName": "probot-contributor-bot",
+  "projectOwner": "karankiri",
+  "repoType": "github",
+  "repoHost": "https://github.com",
   "skipCi": true
 }
