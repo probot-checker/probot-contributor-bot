@@ -25,7 +25,7 @@ module.exports = (app) => {
           const comments = []
           let page = 0
           while (true) {
-              const files = await context.github.pullRequests.list({
+              const files = await context.github.pulls.listFiles({
                   owner,
                   repo,
                   number,
@@ -44,11 +44,7 @@ module.exports = (app) => {
                   } else if (file.filename.endsWith('.md') || file.filename.endsWith('.txt')) {
                     contributionType = "Doc"
                   }
-                  const params = context.issue({body: contributionType || 'Hello World!'})
-
-                  // Post a comment on the issue
-                  context.github.issues.createComment(params)
-                  app.log("CLosed", context.github.issues)
+                  app.log("type", contributionType)
               }
               page += 1
               return
