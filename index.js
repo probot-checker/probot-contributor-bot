@@ -58,7 +58,7 @@ module.exports = (app) => {
         const owner = context.payload.repository.owner.login
         const repo = context.payload.repository.name
         const number = context.payload.number
-        console.log("inside CLosed PR Bot 2")
+        app.log("inside CLosed PR Bot 2")
         const comments = []
         let page = 0
         while (true) {
@@ -70,7 +70,7 @@ module.exports = (app) => {
                 page,
                 per_page: 100
             })
-            console.log("CLosed files", files)
+            app.log("CLosed files", files)
 
             for (const file of files.data) {
                 let contributionType = ""
@@ -85,7 +85,7 @@ module.exports = (app) => {
 
                 // Post a comment on the issue
                 context.github.issues.createComment(params)
-                console.log("CLosed", context.github.issues)
+                app.log("CLosed", context.github.issues)
             }
             page += 1
             return
