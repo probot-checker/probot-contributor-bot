@@ -1,3 +1,5 @@
+const probotProcessIssueCommentSafe = require('./src/tasks/processIssueComment/probot-processIssueComment.js');
+
 module.exports = (app) => {
   // Your code here
   app.log('Yay! The app was loaded!')
@@ -53,5 +55,10 @@ module.exports = (app) => {
         }
     
         
-    })
+  })
+
+  app.on('issue_comment.created', async context => {
+    app.log.trace(context)
+    await probotProcessIssueCommentSafe({ context })
+  })
 }
