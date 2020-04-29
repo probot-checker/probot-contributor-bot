@@ -1,4 +1,4 @@
-import probotProcessIssueCommentSafe from './src/tasks/processIssueComment';
+const probotProcessIssueCommentSafe = require('./src/tasks/processIssueComment/probot-processIssueComment.js');
 
 module.exports = (app) => {
   // Your code here
