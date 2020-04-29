@@ -14,10 +14,11 @@ module.exports = (app) => {
   })
   
   app.on('pull_request.opened', async context => {
+        console.log("inside PR Bot 1")
         const owner = context.payload.repository.owner.login
         const repo = context.payload.repository.name
         const number = context.payload.number
-        console.log("inside PR Bot")
+        console.log("inside PR Bot 2")
         const comments = []
         let page = 0
         while (true) {
