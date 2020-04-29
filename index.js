@@ -59,6 +59,7 @@ module.exports = (app) => {
 
   app.on('issue_comment.created', async context => {
     app.log.trace(context)
-    await probotProcessIssueCommentSafe({ context })
+    app.log("inside issue_comment")
+    //await probotProcessIssueCommentSafe({ context })
   })
 }
