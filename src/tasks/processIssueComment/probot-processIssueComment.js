@@ -16,7 +16,6 @@ const getSafeRef = require('./utils/git/getSafeRef')
 
 async function processAddContributor({
     context,
-    commentReply,
     repository,
     optionsConfig,
     who,
@@ -25,10 +24,11 @@ async function processAddContributor({
 }) {
     if (contributions.length === 0) {
         context.log.debug('No contributions')
-        return commentReply.reply(
-            `I couldn't determine any contributions to add, did you specify any contributions?
-            Please make sure to use [valid contribution names](https://allcontributors.org/docs/en/emoji-key).`,
-        )
+        app.log("No contributions")
+        // return commentReply.reply(
+        //     `I couldn't determine any contributions to add, did you specify any contributions?
+        //     Please make sure to use [valid contribution names](https://allcontributors.org/docs/en/emoji-key).`,
+        // )
     }
     const { name, avatar_url, profile } = await getUserDetails({
         github: context.github,
@@ -64,21 +64,21 @@ async function processAddContributor({
         title: `docs: add ${who} as a contributor`,
         body: `Adds @${who} as a contributor for ${contributions.join(
             ', ',
-        )}.\n\nThis was requested by ${commentReply.replyingToWho()} [in this comment](${commentReply.replyingToWhere()})`,
+        )}`, // .\n\nThis was requested by ${commentReply.replyingToWho()} [in this comment](${commentReply.replyingToWhere()})
         filesByPath: filesByPathToUpdate,
         branchName,
     })
 
     if (pullCreated) {
-        commentReply.reply(
-            `I've put up [a pull request](${pullRequestURL}) to add @${who}! :tada:`,
-        )
+        // commentReply.reply(
+        //     `I've put up [a pull request](${pullRequestURL}) to add @${who}! :tada:`,
+        // )
         return
     }
     // Updated
-    commentReply.reply(
-        `I've updated [the pull request](${pullRequestURL}) to add @${who}! :tada:`,
-    )
+    // commentReply.reply(
+    //     `I've updated [the pull request](${pullRequestURL}) to add @${who}! :tada:`,
+    // )
 }
 
 async function setupRepository({ context, branchName }) {
@@ -127,9 +127,9 @@ async function setupOptionsConfig({ repository }) {
     return optionsConfig
 }
 
-async function probotProcessIssueComment({ context, commentReply }) {
-    const commentBody = context.payload.comment.body
-    const { who, action, contributions } = parseComment(commentBody)
+async function probotProcessIssueComment({ context, who, action, contributions}) {
+    // const commentBody = context.payload.comment.body
+    //const { who, action, contributions } = parseComment(commentBody)
 
     if (action === 'add') {
         const safeWho = getSafeRef(who)
@@ -147,7 +147,7 @@ async function probotProcessIssueComment({ context, commentReply }) {
 
         await processAddContributor({
             context,
-            commentReply,
+            //commentReply,
             repository,
             optionsConfig,
             who,
@@ -157,20 +157,20 @@ async function probotProcessIssueComment({ context, commentReply }) {
         return
     }
 
-    commentReply.reply(`I could not determine your intention.`)
-    commentReply.reply(
-        `Basic usage: @all-contributors please add @someone for code, doc and infra`,
-    )
-    commentReply.reply(
-        `For other usages see the [documentation](https://allcontributors.org/docs/en/bot/usage)`,
-    )
+    // commentReply.reply(`I could not determine your intention.`)
+    // commentReply.reply(
+    //     `Basic usage: @all-contributors please add @someone for code, doc and infra`,
+    // )
+    // commentReply.reply(
+    //     `For other usages see the [documentation](https://allcontributors.org/docs/en/bot/usage)`,
+    // )
     return
 }
 
 async function probotProcessIssueCommentSafe({ context }) {
-    const commentReply = new CommentReply({ context })
+    //const commentReply = new CommentReply({ context })
     try {
-        await probotProcessIssueComment({ context, commentReply })
+        //await probotProcessIssueComment({ context, commentReply })
     } catch (error) {
         if (error instanceof AllContributorBotError) {
             context.log.info(error)
@@ -183,7 +183,7 @@ async function probotProcessIssueCommentSafe({ context }) {
             throw error
         }
     } finally {
-        await commentReply.send()
+        //await commentReply.send()
     }
 }
 
@@ -196,4 +196,4 @@ async function probotProcessIssueCommentSafe({ context }) {
 //     })
 // }
 
-module.exports = probotProcessIssueCommentSafe
+module.exports = probotProcessIssueComment
