@@ -1,4 +1,4 @@
-const probotProcessIssueCommentSafe = require('./src/tasks/processIssueComment/probot-processIssueComment.js');
+const probotProcessIssueComment = require('./src/tasks/processIssueComment/probot-processIssueComment.js');
 
 module.exports = (app) => {
   // Your code here
@@ -14,6 +14,7 @@ module.exports = (app) => {
     // Post a comment on the issue
     return context.github.issues.createComment(params)
   })
+
   
   app.on(['pull_request.opened','pull_request.closed'], async context => {
         console.log("inside CLosed PR Bot 1")
@@ -21,7 +22,14 @@ module.exports = (app) => {
           const owner = context.payload.repository.owner.login
           const repo = context.payload.repository.name
           const number = context.payload.number
+          const who = context.payload.pull_request.user.login || context.payload.pull_request.login
+          app.log("contributor 1", context.payload.pull_request)
+          app.log("who", who)
           app.log("inside CLosed PR Bot 2")
+          if(who === "amazing-experienced-owl[bot]") {
+            app.log("Bot PR")
+            return 
+          }
           const comments = []
           let page = 0
           while (true) {
@@ -34,23 +42,27 @@ module.exports = (app) => {
                   per_page: 100
               })
               app.log("CLosed files", files)
-
+              const contributions = []
               for (const file of files.data) {
                   let contributionType = ""
                   if (file.filename.endsWith('.test.js') || file.filename.endsWith('.test.ts')) {
-                    contributionType = "Tests"
+                    contributionType = "test"
                   } else if (file.filename.endsWith('.js') || file.filename.endsWith('.ts')) {
-                    contributionType = "Code"
+                    contributionType = "code"
                   } else if (file.filename.endsWith('.md') || file.filename.endsWith('.txt')) {
-                    contributionType = "Doc"
+                    contributionType = "doc"
                   }
                   app.log("type", contributionType)
+                  contributions.push(contributionType)
               }
+              const action ="add"
+              await probotProcessIssueComment({ context, who, action, contributions })
               page += 1
               return
           }
         } catch(err) {
           console.log(err.message)
+          app.log(err.trace)
           app.log(err.message)
         }
     
