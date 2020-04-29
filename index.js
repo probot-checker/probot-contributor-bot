@@ -13,11 +13,11 @@ module.exports = (app) => {
     return context.github.issues.createComment(params)
   })
   
-  app.on(['pull_request.opened', 'pull_request.synchronize', 'pull_request.closed'], async context => {
+  app.on('pull_request.opened', async context => {
         const owner = context.payload.repository.owner.login
         const repo = context.payload.repository.name
         const number = context.payload.number
-        
+        console.log("inside PR Bot")
         const comments = []
         let page = 0
         while (true) {
@@ -29,6 +29,7 @@ module.exports = (app) => {
                 page,
                 per_page: 100
             })
+            console.log("files", files)
 
             for (const file of files.data) {
                 let contributionType = ""
