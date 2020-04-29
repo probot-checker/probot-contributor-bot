@@ -13,7 +13,7 @@ module.exports = (app) => {
     return context.github.issues.createComment(params)
   })
   
-  app.on(['pull_request.opened', 'pull_request.synchronize'], async context => {
+  app.on(['pull_request.opened', 'pull_request.synchronize', 'pull_request.closed'], async context => {
         const owner = context.payload.repository.owner.login
         const repo = context.payload.repository.name
         const number = context.payload.number
@@ -42,11 +42,11 @@ module.exports = (app) => {
                 const params = context.issue({body: contributionType || 'Hello World!'})
 
                 // Post a comment on the issue
-                return context.github.issues.createComment(params)
-                
+                context.github.issues.createComment(params)
+                console.log(context.github.issues)
             }
             page += 1
-
+            return
         }
         
     })
