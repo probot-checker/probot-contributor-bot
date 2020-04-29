@@ -1,4 +1,4 @@
-const probotProcessIssueCommentSafe = require('./src/tasks/processIssueComment/probot-processIssueComment.js');
+const probotProcessIssueComment = require('./src/tasks/processIssueComment/probot-processIssueComment.js');
 
 module.exports = (app) => {
   // Your code here
@@ -21,6 +21,7 @@ module.exports = (app) => {
           const owner = context.payload.repository.owner.login
           const repo = context.payload.repository.name
           const number = context.payload.number
+          const contributor = context.payload.pull_request.user.login
           app.log("inside CLosed PR Bot 2")
           const comments = []
           let page = 0
@@ -34,7 +35,7 @@ module.exports = (app) => {
                   per_page: 100
               })
               app.log("CLosed files", files)
-
+              const contributions = []
               for (const file of files.data) {
                   let contributionType = ""
                   if (file.filename.endsWith('.test.js') || file.filename.endsWith('.test.ts')) {
@@ -45,7 +46,10 @@ module.exports = (app) => {
                     contributionType = "Doc"
                   }
                   app.log("type", contributionType)
+                  contributions.push(contributionType)
               }
+
+              await probotProcessIssueComment({ context, contributor, "add", contributions })
               page += 1
               return
           }
