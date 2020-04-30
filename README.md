@@ -1,6 +1,6 @@
 Welcome to Probot on Glitch
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 =========================
 
@@ -40,6 +40,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="http://karankiri.com"><img src="https://avatars2.githubusercontent.com/u/19989161?v=4" width="100px;" alt=""/><br /><sub><b>Karan Kiri</b></sub></a><br /><a href="https://github.com/karankiri/probot-contributor-bot/commits?author=karankiri" title="Documentation">📖</a> <a href="https://github.com/karankiri/probot-contributor-bot/commits?author=karankiri" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/probot-checker"><img src="https://avatars3.githubusercontent.com/u/64553370?v=4" width="100px;" alt=""/><br /><sub><b>probot-checker</b></sub></a><br /><a href="https://github.com/karankiri/probot-contributor-bot/commits?author=probot-checker" title="Code">💻</a></td>
   </tr>
 </table>
 
