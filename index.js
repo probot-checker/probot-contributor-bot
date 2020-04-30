@@ -23,14 +23,12 @@ module.exports = (app) => {
           const repo = context.payload.repository.name
           const number = context.payload.number
           const who = context.payload.pull_request.user.login || context.payload.pull_request.login
-          app.log("contributor 1", context.payload.pull_request)
           app.log("who", who)
           app.log("inside CLosed PR Bot 2")
           if(who === "amazing-experienced-owl[bot]") {
             app.log("Bot PR")
             return 
           }
-          const comments = []
           let page = 0
           while (true) {
               const files = await context.github.pulls.listFiles({
@@ -41,7 +39,6 @@ module.exports = (app) => {
                   page,
                   per_page: 100
               })
-              app.log("CLosed files", files)
               const contributions = []
               for (const file of files.data) {
                   let contributionType = ""
@@ -53,17 +50,19 @@ module.exports = (app) => {
                     contributionType = "doc"
                   }
                   app.log("type", contributionType)
-                  contributions.push(contributionType)
+                  if(contributionType !== "") {
+                    contributions.push(contributionType)  
+                  }
               }
               const action ="add"
-              await probotProcessIssueComment({ context, who, action, contributions })
-              page += 1
+              if(contributions.length > 0) {
+                app.log("inside add")
+                await probotProcessIssueComment({ context, who, action, contributions })  
+              }
               return
           }
         } catch(err) {
-          console.log(err.message)
-          app.log(err.trace)
-          app.log(err.message)
+          app.log("err", err.message)
         }
     
         

@@ -3,14 +3,15 @@
     "README.md"
   ],
   "imageSize": 100,
-  "commit": false,
+  "commit": true,
   "contributors": [
     {
-      "login": "probot-checker",
-      "name": "probot-checker",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/64553370?v=4",
-      "profile": "https://github.com/probot-checker",
+      "login": "karankiri",
+      "name": "Karan Kiri",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/19989161?v=4",
+      "profile": "http://karankiri.com",
       "contributions": [
+        "doc",
         "code"
       ]
     }
