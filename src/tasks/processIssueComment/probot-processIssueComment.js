@@ -130,6 +130,8 @@ async function setupOptionsConfig({ repository }) {
 async function probotProcessIssueComment({ context, who, action, contributions}) {
     // const commentBody = context.payload.comment.body
     //const { who, action, contributions } = parseComment(commentBody)
+    console.log("who", who)
+    console.log("action", action)
     if (action === 'add') {
         const safeWho = getSafeRef(who)
         const branchName = `all-contributors/add-${safeWho}`
