@@ -40,6 +40,7 @@ async function processAddContributor({
         name,
         avatar_url,
         profile,
+        context
     })
 
     const contentFiles = new ContentFiles({
@@ -89,21 +90,21 @@ async function setupRepository({ context, branchName }) {
         log: context.log,
     })
 
-    // try {
-    //     await repository.getRef(branchName)
-    //     context.log.info(
-    //         `Branch: ${branchName} EXISTS, will work from this branch`,
-    //     )
-    //     repository.setBaseBranch(branchName)
-    // } catch (error) {
-    //     if (error instanceof BranchNotFoundError) {
-    //         context.log.info(
-    //             `Branch: ${branchName} DOES NOT EXIST, will work from default branch`,
-    //         )
-    //     } else {
-    //         throw error
-    //     }
-    // }
+    try {
+        await repository.getRef(branchName)
+        context.log.info(
+            `Branch: ${branchName} EXISTS, will work from this branch`,
+        )
+        repository.setBaseBranch(branchName)
+    } catch (error) {
+        if (error instanceof BranchNotFoundError) {
+            context.log.info(
+                `Branch: ${branchName} DOES NOT EXIST, will work from default branch`,
+            )
+        } else {
+            throw error
+        }
+    }
 
     return repository
 }
@@ -172,12 +173,12 @@ async function probotProcessIssueCommentSafe({ context }) {
     } catch (error) {
         if (error instanceof AllContributorBotError) {
             context.log.info(error)
-            commentReply.reply(error.message)
+            //commentReply.reply(error.message)
         } else {
             context.log.error(error)
-            commentReply.reply(
-                `We had trouble processing your request. Please try again later.`,
-            )
+            // commentReply.reply(
+            //     `We had trouble processing your request. Please try again later.`,
+            // )
             throw error
         }
     } finally {
