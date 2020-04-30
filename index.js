@@ -23,7 +23,7 @@ module.exports = (app) => {
           const number = context.payload.number
           const isBot = context.payload.pull_request.user.type === "Bot";
           const who = context.payload.pull_request.user.login || context.payload.pull_request.login
-          app.log("pR details", context.payload.pull_request)
+          //app.log("pR details", context.payload.pull_request)
           app.log("who", who)
           app.log("inside CLosed PR Bot 2")
           const isTargetDefaultBranch = context.payload.pull_request.head.repo.default_branch === context.payload.pull_request.base.ref;

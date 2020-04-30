@@ -114,7 +114,7 @@ class OptionsConfig {
         const newContributions = [
             ...new Set([...oldContributions, ...contributions]),
         ]
-        context.log.debug('oldContributions', oldContributions)
+        context.log.info('oldContributions', oldContributions)
         const newContributorsList = await addContributorWithDetails({
             options,
             login,
@@ -123,8 +123,8 @@ class OptionsConfig {
             avatar_url,
             profile: profileWithProtocol,
         })
-        context.log.debug('newContributions', newContributions)
-      context.log.debug('newContributorsList', newContributorsList)
+        context.log.info('newContributions', newContributions)
+      context.log.info('newContributorsList', newContributorsList)
         const newOptions = {
             ...options,
             contributors: newContributorsList,
