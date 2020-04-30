@@ -3,8 +3,19 @@
     "README.md"
   ],
   "imageSize": 100,
-  "commit": false,
-  "contributors": [],
+  "commit": true,
+  "contributors": [
+    {
+      "login": "karankiri",
+      "name": "Karan Kiri",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/19989161?v=4",
+      "profile": "http://karankiri.com",
+      "contributions": [
+        "doc",
+        "code"
+      ]
+    }
+  ],
   "contributorsPerLine": 7,
   "projectName": "probot-contributor-bot",
   "projectOwner": "karankiri",

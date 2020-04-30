@@ -91,7 +91,7 @@ class OptionsConfig {
         return this.originalOptionsSha
     }
 
-    async addContributor({ login, contributions, name, avatar_url, profile }) {
+    async addContributor({ login, contributions, name, avatar_url, profile, context }) {
         const options = this.options
 
         function findOldContributions(username) {
@@ -108,12 +108,13 @@ class OptionsConfig {
         const profileWithProtocol = profile.startsWith('http')
             ? profile
             : `http://${profile}`
+        
 
         const oldContributions = findOldContributions(login)
         const newContributions = [
             ...new Set([...oldContributions, ...contributions]),
         ]
-
+        context.log.info('oldContributions', oldContributions)
         const newContributorsList = await addContributorWithDetails({
             options,
             login,
@@ -122,6 +123,8 @@ class OptionsConfig {
             avatar_url,
             profile: profileWithProtocol,
         })
+        context.log.info('newContributions', newContributions)
+      context.log.info('newContributorsList', newContributorsList)
         const newOptions = {
             ...options,
             contributors: newContributorsList,

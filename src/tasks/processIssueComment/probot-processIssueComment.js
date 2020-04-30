@@ -23,8 +23,7 @@ async function processAddContributor({
     branchName,
 }) {
     if (contributions.length === 0) {
-        context.log.debug('No contributions')
-        app.log("No contributions")
+        context.log.info('No contributions')
         // return commentReply.reply(
         //     `I couldn't determine any contributions to add, did you specify any contributions?
         //     Please make sure to use [valid contribution names](https://allcontributors.org/docs/en/emoji-key).`,
@@ -41,6 +40,7 @@ async function processAddContributor({
         name,
         avatar_url,
         profile,
+        context
     })
 
     const contentFiles = new ContentFiles({
@@ -56,7 +56,7 @@ async function processAddContributor({
         content: optionsConfig.getRaw(),
         originalSha: optionsConfig.getOriginalSha(),
     }
-
+    context.log.info('filesByPathToUpdate', filesByPathToUpdate)
     const {
         pullRequestURL,
         pullCreated,
@@ -130,7 +130,6 @@ async function setupOptionsConfig({ repository }) {
 async function probotProcessIssueComment({ context, who, action, contributions}) {
     // const commentBody = context.payload.comment.body
     //const { who, action, contributions } = parseComment(commentBody)
-
     if (action === 'add') {
         const safeWho = getSafeRef(who)
         const branchName = `all-contributors/add-${safeWho}`
@@ -174,12 +173,12 @@ async function probotProcessIssueCommentSafe({ context }) {
     } catch (error) {
         if (error instanceof AllContributorBotError) {
             context.log.info(error)
-            commentReply.reply(error.message)
+            //commentReply.reply(error.message)
         } else {
             context.log.error(error)
-            commentReply.reply(
-                `We had trouble processing your request. Please try again later.`,
-            )
+            // commentReply.reply(
+            //     `We had trouble processing your request. Please try again later.`,
+            // )
             throw error
         }
     } finally {
