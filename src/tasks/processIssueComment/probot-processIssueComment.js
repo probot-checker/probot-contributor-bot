@@ -23,8 +23,7 @@ async function processAddContributor({
     branchName,
 }) {
     if (contributions.length === 0) {
-        context.log.debug('No contributions')
-        app.log("No contributions")
+        context.log.info('No contributions')
         // return commentReply.reply(
         //     `I couldn't determine any contributions to add, did you specify any contributions?
         //     Please make sure to use [valid contribution names](https://allcontributors.org/docs/en/emoji-key).`,
@@ -56,7 +55,7 @@ async function processAddContributor({
         content: optionsConfig.getRaw(),
         originalSha: optionsConfig.getOriginalSha(),
     }
-
+    context.log.info('filesByPathToUpdate', filesByPathToUpdate)
     const {
         pullRequestURL,
         pullCreated,
@@ -90,21 +89,21 @@ async function setupRepository({ context, branchName }) {
         log: context.log,
     })
 
-    try {
-        await repository.getRef(branchName)
-        context.log.info(
-            `Branch: ${branchName} EXISTS, will work from this branch`,
-        )
-        repository.setBaseBranch(branchName)
-    } catch (error) {
-        if (error instanceof BranchNotFoundError) {
-            context.log.info(
-                `Branch: ${branchName} DOES NOT EXIST, will work from default branch`,
-            )
-        } else {
-            throw error
-        }
-    }
+    // try {
+    //     await repository.getRef(branchName)
+    //     context.log.info(
+    //         `Branch: ${branchName} EXISTS, will work from this branch`,
+    //     )
+    //     repository.setBaseBranch(branchName)
+    // } catch (error) {
+    //     if (error instanceof BranchNotFoundError) {
+    //         context.log.info(
+    //             `Branch: ${branchName} DOES NOT EXIST, will work from default branch`,
+    //         )
+    //     } else {
+    //         throw error
+    //     }
+    // }
 
     return repository
 }
