@@ -38,9 +38,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="http://karankiri.com"><img src="https://avatars2.githubusercontent.com/u/19989161?v=4" width="100px;" alt=""/><br /><sub><b>Karan Kiri</b></sub></a><br /><a href="https://github.com/karankiri/probot-contributor-bot/commits?author=karankiri" title="Documentation">📖</a> <a href="https://github.com/karankiri/probot-contributor-bot/commits?author=karankiri" title="Code">💻</a></td>
-  </tr>
 </table>
 
 <!-- markdownlint-enable -->
