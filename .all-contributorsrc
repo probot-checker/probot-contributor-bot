@@ -4,17 +4,7 @@
   ],
   "imageSize": 100,
   "commit": true,
-  "contributors": [
-    {
-      "login": "probot-checker",
-      "name": "probot-checker",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/64553370?v=4",
-      "profile": "https://github.com/probot-checker",
-      "contributions": [
-        "code"
-      ]
-    }
-  ],
+  "contributors": [],
   "contributorsPerLine": 7,
   "projectName": "probot-contributor-bot",
   "projectOwner": "karankiri",
